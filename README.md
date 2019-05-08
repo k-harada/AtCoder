@@ -1,4 +1,7 @@
 # AtCoder
-AtCoderの私(hoxosh)の解答＋復習をはっていくレポジトリです  
+AtCoderの私の解答＋復習をはっていくレポジトリです  
+pythonです、だいたいPyPy3で通ってますが、時々TLE解をアップしてることがあるのでそこはごめんなさい  
+numpyをimportしてたらそれはPython3です。    
 
-https://atcoder.jp/users/hoxosh
+私(hoxosh) ↓  
+https://atcoder.jp/users/hoxosh  
