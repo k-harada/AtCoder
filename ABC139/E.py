@@ -28,19 +28,19 @@ def solve_e(n, a_list):
 
 
 def test():
-    N = 1000
-    A_list = []
-    for i in range(N):
-        A_list.append(list(range(1, i + 1)) + list(range(i + 2, N + 1)))
-    print(solve_e(N, A_list))
+    n = 1000
+    a_list = []
+    for i in range(n):
+        a_list.append(list(range(1, i + 1)) + list(range(i + 2, n + 1)))
+    print(solve_e(n, a_list))
 
 
 def main():
-    N = int(input())
-    A_list = []
-    for _ in range(N):
-        A_list.append(list(map(int, input().split())))
-    print(solve_e(N, A_list))
+    n = int(input())
+    a_list = []
+    for _ in range(n):
+        a_list.append(list(map(int, input().split())))
+    print(solve_e(n, a_list))
 
 
 if __name__ == "__main__":
