@@ -1,3 +1,19 @@
+def binary_search(cond, left_initial, right_initial):
+
+    left = left_initial
+    right = right_initial
+
+    while left + 1 < right:
+        mid = (left + right) // 2
+
+        if cond(mid):
+            right = mid
+        else:
+            left = mid
+
+    return left
+
+
 def solve_e(n, a_list):
     days = 0
     ind_list = [0] * n
