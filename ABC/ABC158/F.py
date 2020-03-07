@@ -1,5 +1,7 @@
-N = int(input())
-a_list = list(map(int, input().split()))
+from bisect import bisect_left
+
+
+LARGE = 998244353
 
 
 class SegmentTree(object):
@@ -49,11 +51,47 @@ class SegmentTree(object):
         return res
 
 
-s = SegmentTree(a_list, max, -1)
+def solve(n, x_list, d_list):
+    reach_right = [0] * n
+    reach_right[-1] = n - 1
+    # from right
+    seg = SegmentTree(list(range(n)), max, -1)
+    for i in range(n - 2, -1, -1):
+        j = bisect_left(x_list, x_list[i] + d_list[i])
+        k = seg.query(i, j)
+        seg.update(i, k)
+        reach_right[i] = k
+    # dp
+    dp = [[0] * 2 for _ in range(n)]
+    dp[n - 1][0] = 1
+    dp[n - 1][1] = 1
+    for i in range(n - 2, -1, -1):
+        dp[i][0] = (dp[i + 1][0] + dp[i + 1][1]) % LARGE
+        j = reach_right[i] + 1
+        if j <= n - 1:
+            dp[i][1] = (dp[j][0] + dp[j][1]) % LARGE
+        else:
+            dp[i][1] = 1
 
-res = 1
-left = N - 1 - a_list[-1]
-right = N - 1
+    return (dp[0][0] + dp[0][1]) % LARGE
 
-while left >= 0:
-    s.query(left, right)
+
+def main():
+    n = int(input())
+    xd_list = sorted([list(map(int, input().split())) for _ in range(n)], key=lambda x: x[0])
+    x_list = [xd[0] for xd in xd_list]
+    d_list = [xd[1] for xd in xd_list]
+    res = solve(n, x_list, d_list)
+    print(res)
+
+
+def test():
+    assert solve(2, [1, 3], [5, 3]) == 3
+    assert solve(3, [-1, 3, 6], [10, 3, 5]) == 5
+    assert solve(4, [-10, -4, 4, 7], [3, 3, 3, 10]) == 16
+
+
+# pypy
+if __name__ == "__main__":
+    test()
+    main()
