@@ -42,6 +42,7 @@ def test():
     assert solve(5, 21600, [[2, 14], [3, 22], [1, 3], [1, 10], [1, 9]]) == 5
 
 
+# pypy
 if __name__ == "__main__":
     test()
     main()
