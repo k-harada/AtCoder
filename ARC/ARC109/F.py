@@ -1,0 +1,23 @@
+def solve():
+    return 0
+
+
+def main():
+    # a = int(input())
+    # b, c = map(int, input().split())
+    # s = input()
+    res = solve()
+    print(res)
+    # for r in res:
+    #     print(r)
+
+
+def test():
+    assert solve() == 0
+    assert solve() == 0
+    assert solve() == 0
+
+
+if __name__ == "__main__":
+    test()
+    main()
