@@ -3,13 +3,21 @@ MOD = 998244353
 
 def solve(n, m):
 
+    if n == 1:
+        return m % MOD
+
     res = n * pow(m, n, MOD)
     res %= MOD
-    for d in range(1, n):
-        diff = 0
-        for i in range(1, m + 1):
-            diff += pow(m - i, d - 1, MOD) * pow(m, n - d - 1, MOD)
-        res -= diff * (n - d)
+    m_inv = pow(m, MOD - 2, MOD)
+    for i in range(1, m + 1):
+        a = 1
+        b = pow(m, n - 2, MOD)
+        for d in range(1, n):
+            res -= (a * b * (n - d)) % MOD
+            a *= m - i
+            a %= MOD
+            b *= m_inv
+            b %= MOD
         res %= MOD
     # print(res)
     return res
