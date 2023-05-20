@@ -1,14 +1,14 @@
 MOD = 10 ** 9 + 7
 
-n = 10000
-factorial = [1] * (n + 1)
-factorial_inv = [1] * (n + 1)
-for i in range(1, n + 1):
+size = 10000
+factorial = [1] * (size + 1)
+factorial_inv = [1] * (size + 1)
+for i in range(1, size + 1):
     factorial[i] = (factorial[i - 1] * i) % MOD
 
 factorial_inv[-1] = pow(factorial[-1], MOD - 2, MOD)
 
-for i in range(n, 0, -1):
+for i in range(size, 0, -1):
     factorial_inv[i - 1] = (factorial_inv[i] * i) % MOD
 
 if __name__ == "__main__":
