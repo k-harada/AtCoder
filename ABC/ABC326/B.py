@@ -1,27 +1,22 @@
-def solve(n, wx_list):
-    count = [0] * 24
-    for w, x in wx_list:
-        count[x] += w
-    s_max = sum(count[:9])
-    s = s_max
-    for i in range(9, 33):
-        s += count[i % 24]
-        s -= count[(i - 9) % 24]
-        s_max = max(s_max, s)
-    return s_max
+def solve(n):
+    for x in range(n, 1000):
+        xs = str(x)
+        a, b, c = int(xs[0]), int(xs[1]), int(xs[2])
+        if a * b == c:
+            return x
+    return -1
 
 
 def main():
     n = int(input())
-    wx_list = [tuple(map(int, input().split())) for _ in range(n)]
-    res = solve(n, wx_list)
+    res = solve(n)
     print(res)
 
 
 def test():
-    assert solve(3, [(5, 0), (3, 3), (2, 18)]) == 8
-    assert solve(2, [(1, 10), (100000, 20)]) == 100000
-    assert solve(6, [(31, 3), (20, 8), (11, 5), (4, 3), (47, 14), (1, 18)]) == 67
+    assert solve(320) == 326
+    assert solve(144) == 144
+    assert solve(516) == 600
 
 
 if __name__ == "__main__":

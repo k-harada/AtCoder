@@ -1,16 +1,20 @@
-def solve(s, t):
-    return s + " san"
+def solve(x, y):
+    if x - 3 <= y <= x + 2:
+        return "Yes"
+    else:
+        return "No"
 
 
 def main():
-    s, t = input().split()
-    res = solve(s, t)
+    x, y = map(int, input().split())
+    res = solve(x, y)
     print(res)
 
 
 def test():
-    assert solve("Takahashi", "Chokudai") == "Takahashi san"
-    assert solve("K", "Eyence") == "K san"
+    assert solve(1, 4) == "No"
+    assert solve(99, 96) == "Yes"
+    assert solve(100, 1) == "No"
 
 
 if __name__ == "__main__":

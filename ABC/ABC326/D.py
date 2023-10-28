@@ -1,54 +1,72 @@
-from heapq import heappop, heappush
+from itertools import permutations
 
 
-def solve(n, td_list):
-    res = 0
-    td_list_s = list(sorted(td_list, key=lambda x: x[0]))
-    h = []
-    i = 0
-    t_now = 0
-    while i < n or len(h):
-        # print(i, t_now)
-        # 時間経過
-        if len(h) == 0:
-            t, d = td_list_s[i]
-            if t > t_now:
-                t_now = t
-        # 追加
-        while i < n:
-            t, d = td_list_s[i]
-            if t == t_now:
-                heappush(h, t + d)
-                i += 1
-            else:
-                break
-        # pop
-        while len(h):
-            t_ = heappop(h)
-            if t_ >= t_now:
-                res += 1
-                break
-        t_now += 1
+def solve(n, r, c):
+    perm_a = list(permutations(list(range(n)), n))
+    perm_b = list(permutations(list(range(n)), n))
+    perm_c = list(permutations(list(range(n)), n))
+    for pa in perm_a:
+        for pb in perm_b:
+            for pc in perm_c:
+                success = True
+                res = [["."] * n for _ in range(n)]
+                # print(pa, pb, pc)
+                for i, j in enumerate(pa):
+                    res[i][j] = "A"
+                for i, j in enumerate(pb):
+                    if res[i][j] != ".":
+                        success = False
+                    res[i][j] = "B"
+                for i, j in enumerate(pc):
+                    if res[i][j] != ".":
+                        success = False
+                    res[i][j] = "C"
+                for i in range(n):
+                    for j in range(n):
+                        if res[i][j] == ".":
+                            continue
+                        if res[i][j] == r[i]:
+                            break
+                        else:
+                            success = False
+                # print(res)
+                for j in range(n):
+                    for i in range(n):
+                        if res[i][j] == ".":
+                            continue
+                        if res[i][j] == c[j]:
+                            break
+                        else:
+                            success = False
 
-    return res
+                if success:
+                    # print(res)
+                    return ["Yes"] + ["".join([res[i][j] for j in range(n)]) for i in range(n)]
+
+    return ["No"]
 
 
 def main():
     n = int(input())
-    td_list = [tuple(map(int, input().split())) for _ in range(n)]
-    res = solve(n, td_list)
-    print(res)
+    r = input()
+    c = input()
+    res = solve(n, r, c)
+    for r in res:
+        print(r)
 
 
 def test():
-    assert solve(5, [(1, 1), (1, 1), (2, 1), (1, 2), (1, 4)]) == 4
-    assert solve(2, [(1, 1), (1000000000000000000, 1000000000000000000)]) == 2
-    assert solve(10, [
-        (4, 1), (1, 2), (1, 4), (3, 2), (5, 1),
-        (5, 1), (4, 1), (2, 1), (4, 1), (2, 4)
-    ]) == 6
+    assert solve(5, "ABCBC", "ACAAB") == [
+        "Yes",
+        "AC..B",
+        ".BA.C",
+        "C.BA.",
+        "BA.C.",
+        "..CBA",
+    ]
+    assert solve(3, "AAA", "BBB") == ["No"]
 
 
 if __name__ == "__main__":
-    test()
+    # test()
     main()
