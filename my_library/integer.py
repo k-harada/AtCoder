@@ -7,6 +7,18 @@ def fast_prime_factorization(n):
     return list(map(int, Popen(["factor", str(n)], stdout=PIPE).communicate()[0].split()[1:]))
 
 
+def prime_factorization(n):
+    res = []
+    x = n
+    for i in range(2, int(n ** 0.5) + 1):
+        while x % i == 0:
+            x //= i
+            res.append(i)
+    if x != 1:
+        res.append(x)
+    return res
+
+
 import numpy as np
 
 
