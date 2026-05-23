@@ -7,7 +7,7 @@ more-itertools==9.0.0
 shapely==2.0.0
 bitarray==2.6.2
 PuLP==2.7.0
-mpmath==1.2.1
+mpmath==1.3.0
 pandas==1.5.2
 z3-solver==4.12.1.0
 scikit-learn==1.2.0
